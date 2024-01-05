@@ -1,0 +1,251 @@
+---
+- hosts: all
+  become: true
+  vars:
+   src_path: /home/edureka/playbooks
+   dst_path: /var/www/html
+  tasks:
+  - name: Install Packages
+    package: name={{ item }} update_cache=yes state=latest
+    loop: [ 'apache2', 'vim', 'screen' ]
+    tags: [ 'setup' ]
+
+  - name: Copy Index Page
+    copy:
+      src: "{{src_path}}/index.html"
+      dest: "{{dst_path}}/index.html"
+      owner: root
+      group: root
+      mode: '0644'
+    tags: [ 'update', 'sync']
+
+  - name: Start the services
+    service: name=apache2 state=started enabled=yes
+    tags: [ 'service' ]
+
+  - name: Changing Port number
+    lineinfile:
+       path: /etc/apache2/ports.conf
+       regexp: '^Listen '
+       insertafter: '^#Listen '
+       line: Listen 83
+    notify: Restart apache2
+    tags: [ 'update', 'sync']
+
+  handlers:
+  - name: Restart apache2
+    service: name=apache2 state=restarted
+...
+
+
+
+  999  ansible-inventory --list -y
+ 1000  vi httpd.yaml
+ 1001  whoami
+ 1002  vi httpd.yaml
+ 1003  pwd
+ 1004  ls
+ 1005  cat /etc/ansible/hosts
+ 1006  cat index.html
+ 1007  ansible -m ping all
+ 1008  pwd
+ 1009  ls
+ 1010  vi hosts
+ 1011  pwd
+ 1012  ls
+ 1013  ansible-playbook -i hosts httpd.yaml --list-hosts
+ 1014  cat httpd.yaml
+ 1015  cat hosts
+ 1016  ansible-playbook -i hosts httpd.yaml --list-hosts
+ 1017  ansible-playbook -i hosts httpd.yaml --list-tasks
+ 1018  ansible-playbook -i hosts httpd.yaml --list-tags
+ 1019  ansible-playbook -i hosts httpd.yaml --syntax-check
+ 1020  cat httpd.yaml
+ 1021  history
+ 1022  whoami
+ 1023  cat httpd.yaml
+ 1024  sudo -l
+ 1025  whoami
+ 1026  cat httpd.yaml
+ 1027  ansible-playbook -i hosts httpd.yaml
+ 1028  vi httpd.yaml
+ 1029  ansible-playbook -i hosts httpd.yaml
+ 1030  vi httpd.yaml
+ 1031  ls
+ 1032  vi index.html
+ 1033  ansible-playbook -i hosts httpd.yaml
+ 1034  vi httpd.yaml
+ 1035  ansible-playbook -i hosts httpd.yaml
+ 1036  vi httpd.yaml
+ 1037  ansible-playbook -i hosts httpd.yaml
+ 1038  vi httpd.yaml
+ 1039  ansible-playbook -i hosts httpd.yaml
+ 1040  cat httpd.yaml
+ 1041  vi httpd.yaml
+ 1042  ansible-playbook -i hosts httpd.yaml
+ 1043  vi httpd.yaml
+ 1044  ansible-playbook -i hosts httpd.yaml
+ 1045  ansible-playbook -i hosts httpd.yaml -v
+ 1046  ansible-playbook -i hosts httpd.yaml -vv
+ 1047  ansible-playbook -i hosts httpd.yaml -vvv
+ 1048  ansible-playbook -i hosts httpd.yaml -vvvv
+ 1049  cat httpd.yaml
+ 1050  vi httpd.yaml
+ 1051  ansible-playbook -i hosts httpd.yaml
+ 1052  ansible-playbook -i hosts httpd.yaml --list-tags
+ 1053  ansible-playbook -i hosts httpd.yaml --list-tasks
+ 1054  ansible-playbook --help
+ 1055  ansible-playbook -i hosts httpd.yaml --list-tasks
+ 1056  ansible-playbook -i hosts httpd.yaml --start-at-task='Copy Index Page'
+ 1057  vi httpd.yaml
+ 1058  ansible-playbook -i hosts httpd.yaml --list-tags
+ 1059  ansible-playbook -i hosts httpd.yaml --list-tasks
+ 1060  ansible-playbook -i hosts httpd.yaml --tags=sync
+ 1061  ansible-playbook -i hosts httpd.yaml --skip-tags=sync
+ 1062  ansible-playbook -i hosts httpd.yaml --list-tasks
+ 1063  ansible-playbook -i hosts httpd.yaml --step
+ 1064  pwd
+ 1065  ls
+ 1066  cat httpd.yaml
+ 1067  pwd
+ 1068  ls
+ 1069  cd
+ 1070  cd playbooks/
+ 1071  ls
+ 1072  vi test1.yaml
+ 1073  ansible-playbook test1.yaml
+ 1074  vi test1.yaml
+ 1075  ansible-playbook test1.yaml
+ 1076  ls
+ 1077  vi httpd.yaml
+ 1078  pwd
+ 1079  vi httpd.yaml
+ 1080  mv httpd.yaml apache2.yml
+ 1081  pwd
+ 1082  ls
+ 1083  cat apache2.yml
+ 1084  pwd
+ 1085  ls
+ 1086  which ansible-galaxy
+ 1087  pwd
+ 1088  ls
+ 1089  ansible-galaxy init apache2
+ 1090  pwd
+ 1091  ls
+ 1092  which tree
+ 1093  sudo apt-get install tree -y
+ 1094  pwd
+ 1095  ls
+ 1096  tree apache2
+ 1097  cat apache2.yml
+ 1098  vi apache2/vars/main.yml
+ 1099  vi apache2/tasks/main.yml
+ 1100  vi apache2/handlers/main.yml
+ 1101  cp index.html apache2/files/
+ 1102  vi apache2/meta/main.yml
+ 1103  tree apache2
+ 1104  vi apache2/tests/inventory
+ 1105  pwd
+ 1106  ls
+ 1107  pwd
+ 1108  ls
+ 1109  vi role.yml
+ 1110  ansible-playbook role.yml
+ 1111  ansible-playbook apache2.yml
+ 1112  ansible-playbook -i hosts apache2.yml
+ 1113  pwd
+ 1114  ls -l index.html
+ 1115  vi apache2.yml
+ 1116  ansible-playbook apache2.yml
+ 1117  vi apache2.yml
+ 1118  ansible-playbook apache2.yml
+ 1119  pwd
+ 1120  ls -ld
+ 1121  ls -l index.html
+ 1122  cat index.html
+ 1123  vi apache2.yml
+ 1124  ansible-playbook apache2.yml
+ 1125  vi apache2.yml
+ 1126  pwd
+ 1127  ls -l index.html
+ 1128  vi apache2.yml
+ 1129  ansible-playbook apache2.yml
+ 1130  vi apache2.yml
+ 1131  ansible-playbook apache2.yml
+ 1132  vi apache2.yml
+ 1133  ansible-playbook apache2.yml
+ 1134  vi apache2.yml
+ 1135  ansible-playbook apache2.yml
+ 1136  pwd
+ 1137  ls
+ 1138  cd apache2/
+ 1139  ls
+ 1140  vi vars/main.yml
+ 1141  vi tasks/main.yml
+ 1142  cd ..
+ 1143  ls
+ 1144  ansible-playbook role.yml
+ 1145  cd apache2/
+ 1146  ls
+ 1147  cd tasks/
+ 1148  ls
+ 1149  vi main.yml
+ 1150  cd ../..
+ 1151  ls
+ 1152  cat role.yml
+ 1153  ansible-playbook role.yml
+ 1154  cat apache2.yml
+ 1155  tree apache2
+ 1156  cd
+ 1157  mkdir online-roles
+ 1158  cd online-roles/
+ 1159  ls
+ 1160  vi /etc/ansible/ansible.cfg
+ 1161  ansible-galaxy install --roles-path . geerlingguy.jenkins
+ 1162  ansible-galaxy install --roles-path . geerlingguy.java
+ 1163  pwd
+ 1164  ls
+ 1165  tree geerlingguy.java/
+ 1166  tree geerlingguy.jenkins/
+ 1167  pwd
+ 1168  ls
+ 1169  vi role.yml
+ 1170  vi role.yml
+ 1171  history
+ 1172  cat role.yml
+ 1173  pwd
+ 1174  ls
+ 1175  cat role.yml
+ 1176  ls -l role.yml
+ 1177  chmod 600 role.yml
+ 1178  ls -l role.yml
+ 1179  cat role.yml
+ 1180  pwd
+ 1181  ls -l role.yml
+ 1182  ansible-vault --help
+ 1183  ansible-vault create --help
+ 1184  ansible-vault encrypt --vault-id @prompt role.yml
+ 1185  pwd
+ 1186  ls
+ 1187  cat role.yml
+ 1188  ansible-playbook role.yml
+ 1189  vi role.yml
+ 1190  ansible-playbook --help
+ 1191  ansible-playbook --vault-id @prompt role.yml
+ 1192  ansible-playbook role.yml
+ 1193  ansible-vault --help
+ 1194  ansible-vault decrypt --ask-vault-pass role.yml
+ 1195  cat role.yml
+ 1196  vi role.yml
+ 1197  ansible-vault create --vault-id @prompt secret.yml
+ 1198  cat secret.yml
+ 1199  ansible-playbook secret.yml
+ 1200  vi secret.yml
+ 1201  history
+ 1202  cd ..
+ 1203  cd playbooks/
+ 1204  ls
+ 1205  cat apache2.yml
+ 1206  history
+edureka@kmaster:~/playbooks$
+
