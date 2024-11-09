@@ -10,16 +10,16 @@
 
 ## Step2 -- `Install Java & Jenkins`
 ```
-sudo wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installJenkins.sh -P /tmp
-sudo chmod 755 /tmp/installJenkins.sh
-sudo bash /tmp/installJenkins.sh
+# follow instruction from below
+
+https://github.com/lerndevops/labs/blob/master/jenkins/Install/README.md 
 ```
 
 ## Step3 -- `Install Maven` 
 ```
-sudo wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installMaven.sh -P /tmp
-sudo chmod 755 /tmp/installMaven.sh
-sudo bash /tmp/installMaven.sh
+# follow instruction from below
+
+https://github.com/lerndevops/labs/blob/master/jenkins/Install/README.md 
 ```
 
 ## Step4 -- `Install Docker`
@@ -36,7 +36,8 @@ sudo chmod 755 /tmp/installAnsible.sh
 sudo bash /tmp/installAnsible.sh
 
 # modify the ansible config file to ensure disable host key checking 
-
+cd /etc/ansible/
+ansible-config init --disabled > ansible.cfg
 vi /etc/ansible/ansible.cfg 
 
 # uncomment this to disable SSH key host checking
